@@ -1,12 +1,12 @@
 from collections import deque
 from prettytable import PrettyTable
 from node import Node
-
+#https://tristanpenman.com/demos/n-puzzle/#
 generatedStates =1 
 expandedStates =0
 goalState = ''
 
-def solvable(initState):
+"""def solvable(initState):
     def getInvCount(arr):
         inv_count = 0
         for i in range(0, 9):
@@ -16,7 +16,7 @@ def solvable(initState):
         return inv_count
 
     invCount = getInvCount(list(initState))
-    return (invCount % 2 == 0)
+   return (invCount % 2 == 0)"""
 
 def solveDFS(initState,goalState):
     global expandedStates
@@ -25,7 +25,7 @@ def solveDFS(initState,goalState):
     path = [] 
     currentNode = Node(initState)
     while not currentNode.nIsGoal(goalState):
-        print(currentNode.state)
+        ##print(currentNode.state)
         currentNode.expandNode()
         expandedStates += 1
         queue.extendleft(currentNode.children)
@@ -69,15 +69,15 @@ def main():
     global goalState
     goalState = generateGoalState(initialState)
     printState(goalState)
-    if(solvable(initialState)):
-        path = solveDFS(initialState,goalState)
-        for node in path:
-            printState(node)
-            print("\n"*2)
-        print("Generated States:" + str(generatedStates)+"\n")
-        print("Expanded States:" + str(expandedStates)+"\n")
-    else:
-        print("cannot be solved")
+    ##if(solvable(initialState)):
+    path = solveDFS(initialState,goalState)
+    for node in path:
+        printState(node)
+        print("\n"*2)
+    print("Generated States:" + str(generatedStates)+"\n")
+    print("Expanded States:" + str(expandedStates)+"\n")
+    #else:
+    #   print("cannot be solved")
     
 
 if __name__ == "__main__":
