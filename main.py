@@ -1,5 +1,6 @@
 from collections import deque
 from node import Node
+import time
 
 generatedStates =1 
 expandedStates =0
@@ -97,6 +98,7 @@ def main():
     print("Generated States:" + str(generatedStates))
     print("Expanded States:" + str(expandedStates))
     
+    time.sleep(20) 
 
 if __name__ == "__main__":
     main()
