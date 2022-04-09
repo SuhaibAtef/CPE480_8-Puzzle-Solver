@@ -31,7 +31,7 @@ def solveDFS(initState,goalState,choice):
                             path.append(parent)
                         path.reverse()
                         return path
-                    if ((child.state not in explored)):
+                    if ((child.state not in explored)and (child not in queue)):
                         
                         explored.add(child.state)
                         queue.appendleft(child)
