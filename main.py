@@ -1,6 +1,4 @@
 from collections import deque
-from secrets import choice
-from prettytable import PrettyTable
 from node import Node
 
 generatedStates =1 
@@ -54,14 +52,12 @@ def printState(state):
     z=state.find('0')
     state = list(state)
     state[z]=" "
-    stateTable= PrettyTable()
-    stateTable.border = False
-    stateTable.header = False
-    stateTable.field_names = ["Col1","Col2","Col3"]
-    stateTable.add_row([state[0],state[1],state[2]])
-    stateTable.add_row([state[3],state[4],state[5]])
-    stateTable.add_row([state[6],state[7],state[8]])
-    print(stateTable)
+    
+    print(state[0]+"  "+state[1]+"  "+state[2])
+    print(state[3]+"  "+state[4]+"  "+state[5])
+    print(state[6]+"  "+state[7]+"  "+state[8])
+
+
 
 
 def generateGoalState(state):
@@ -92,9 +88,10 @@ def main():
     
     path = solveDFS(initialState,goalState,choice)
     for node in path:
-        printState(node.state)
-        print("\n"*2)
         actions.append(node.action)
+        printState(node.state)
+        print("\n")
+        
     print("===== ===== ===== =====")
     print ("Actions:" + str(actions)[5:-1] )
     print("Generated States:" + str(generatedStates))
