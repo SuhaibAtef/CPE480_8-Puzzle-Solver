@@ -6,18 +6,6 @@ generatedStates =1
 expandedStates =0
 goalState = ''
 
-def solvable(initState):
-    def getInvCount(arr):
-        inv_count = 0
-        for i in range(0, 9):
-            for j in range(i + 1, 9):
-                if arr[j] != '0' and arr[i] != '0' and arr[i] > arr[j]:
-                    inv_count += 1
-        return inv_count
-
-    invCount = getInvCount(list(initState))
-    return (invCount % 2 == 0)
-
 def solveDFS(initState,goalState):
     global expandedStates
     global generatedStates
@@ -25,16 +13,16 @@ def solveDFS(initState,goalState):
     path = [] 
     currentNode = Node(initState)
     while not currentNode.nIsGoal(goalState):
-        print(currentNode.state)
+        ##print(currentNode.state)
         currentNode.expandNode()
         expandedStates += 1
         queue.extendleft(currentNode.children)
         generatedStates+=len(currentNode.children)
         currentNode = queue.pop()
 
-    path.append(currentNode.state)
+    path.append(currentNode)
     for parent in currentNode.getParents():
-        path.append(parent.state)
+        path.append(parent)
     path.reverse()
 
     return path
@@ -62,6 +50,7 @@ def main():
     global generatedStates 
     global expandedStates 
     initialState = ""
+    actions = []
     while(len(initialState)!=9):
         initialState = input("Please insert your 8 puzzle string:")
     
@@ -69,15 +58,16 @@ def main():
     global goalState
     goalState = generateGoalState(initialState)
     printState(goalState)
-    if(solvable(initialState)):
-        path = solveDFS(initialState,goalState)
-        for node in path:
-            printState(node)
-            print("\n"*2)
-        print("Generated States:" + str(generatedStates)+"\n")
-        print("Expanded States:" + str(expandedStates)+"\n")
-    else:
-        print("cannot be solved")
+    path = solveDFS(initialState,goalState)
+    for node in path:
+        printState(node.state)
+        print("\n"*2)
+        actions.append(node.action)
+
+    print ("Actions:" + str(actions)[5:-1] )
+
+    print("Generated States:" + str(generatedStates))
+    print("Expanded States:" + str(expandedStates))
     
 
 if __name__ == "__main__":
