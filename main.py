@@ -12,25 +12,30 @@ def solveDFS(initState,goalState,choice):
     queue = deque()
     path = [] 
     currentNode = Node(initState)
-
+    explored = set()
     if (currentNode.nIsGoal(goalState)):
         path.append(currentNode)
         return path
 
     if (choice==1):
         while not currentNode.nIsGoal(goalState) :
-            #print(currentNode.state)
+                #print(currentNode.state)
                 currentNode.expandNode()
                 expandedStates += 1
-                generatedStates+=len(currentNode.children)
+                #generatedStates+=len(currentNode.children)
                 for child in currentNode.children:
+                    generatedStates+=1
                     if(child.nIsGoal(goalState)):
                         path.append(child)
                         for parent in child.getParents():
                             path.append(parent)
                         path.reverse()
                         return path
-                queue.extendleft(currentNode.children)
+                    if ((child.state not in explored)):
+                        
+                        explored.add(child.state)
+                        queue.appendleft(child)
+                
                 currentNode = queue.pop()
     
     if (choice==2):
